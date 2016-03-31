@@ -43,7 +43,8 @@ passport.use(new LinkedInStrategy({
 }, function(accessToken, refreshToken, profile, done) {
   done(null, {
     id: profile.id,
-    displayName: profile.displayName
+    displayName: profile.displayName,
+    token: accessToken
   })
 }));
 
@@ -67,8 +68,8 @@ passport.deserializeUser(function(user, done) {
 
 // right above app.use('/', routes);
 app.use(function(req, res, next) {
-  res.locals.user = req.user
-  next()
+  res.locals.user = req.user;
+  next();
 })
 app.use('/', routes);
 app.use('/users', users);
